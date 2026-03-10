@@ -1,315 +1,384 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Women's Day Gallery</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Women's Day Gallery</title>
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif
+        }
 
-body{
-background:linear-gradient(135deg,#ff9a9e,#fad0c4);
-color:white;
-overflow-x:hidden;
-}
+        body {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: white;
+            overflow-x: hidden;
+        }
 
-/* Password Gate */
-#gate{
-position:fixed;
-inset:0;
-background:linear-gradient(135deg,#ff758c,#ff7eb3);
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-z-index:9999;
-text-align:center;
-padding:30px;
-}
+        /* Password Gate */
+        #gate {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            text-align: center;
+            padding: 30px;
+        }
 
-#gate h2{font-size:32px;margin-bottom:20px}
+        #gate h2 {
+            font-size: 32px;
+            margin-bottom: 20px
+        }
 
-#nameInput{
-padding:12px 16px;
-border:none;
-border-radius:10px;
-font-size:18px;
-margin-bottom:15px;
-width:220px;
-text-align:center;
-}
+        #nameInput {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            margin-bottom: 15px;
+            width: 220px;
+            text-align: center;
+        }
 
-#enterBtn{
-padding:10px 18px;
-border:none;
-border-radius:10px;
-background:white;
-color:#ff4f81;
-font-weight:bold;
-font-size:16px;
-cursor:pointer;
-}
+        #enterBtn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 10px;
+            background: white;
+            color: #ff4f81;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+        }
 
-#errorMsg{margin-top:10px;font-size:14px;opacity:.9;color:white}
+        #errorMsg {
+            margin-top: 10px;
+            font-size: 14px;
+            opacity: .9;
+            color: white
+        }
 
-/* Intro */
-#intro{
-height:100vh;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-text-align:center;
-background:linear-gradient(135deg,#ff758c,#ff7eb3);
-}
+        /* Intro */
+        #intro {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        }
 
-#intro h1{
-font-size:56px;
-letter-spacing:2px;
-margin-bottom:20px;
-animation:fadeIn 2s ease forwards;
-}
+        #intro h1 {
+            font-size: 56px;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease forwards;
+        }
 
-#intro p{
-font-size:22px;
-opacity:.9;
-animation:fadeIn 3s ease forwards;
-}
+        #intro p {
+            font-size: 22px;
+            opacity: .9;
+            animation: fadeIn 3s ease forwards;
+        }
 
-.scrollHint{
-position:absolute;
-bottom:40px;
-font-size:16px;
-opacity:.8;
-animation:bounce 2s infinite;
-}
+        .scrollHint {
+            position: absolute;
+            bottom: 40px;
+            font-size: 16px;
+            opacity: .8;
+            animation: bounce 2s infinite;
+        }
 
-@keyframes bounce{
-0%,100%{transform:translateY(0)}
-50%{transform:translateY(10px)}
-}
+        @keyframes bounce {
 
-@keyframes fadeIn{
-from{opacity:0;transform:translateY(20px)}
-to{opacity:1;transform:translateY(0)}
-}
+            0%,
+            100% {
+                transform: translateY(0)
+            }
 
-/* Gallery */
-section{
-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-position:relative;
-overflow:hidden;
-}
+            50% {
+                transform: translateY(10px)
+            }
+        }
 
-section img{
-max-width:88%;
-max-height:80vh;
-border-radius:20px;
-box-shadow:0 25px 60px rgba(0,0,0,0.45);
-opacity:0;
-transform:scale(.8);
-transition:all 1s ease;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px)
+            }
 
-/* floating motion */
-animation:floatImage 7s ease-in-out infinite;
-}
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
 
-section.show img{
-opacity:1;
-transform:scale(1);
-}
+        /* Gallery */
+        section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-/* gentle floating effect */
-@keyframes floatImage{
-0%{transform:translateY(0) translateX(0) scale(1)}
-25%{transform:translateY(-10px) translateX(6px) scale(1.02)}
-50%{transform:translateY(-16px) translateX(-6px) scale(1.03)}
-75%{transform:translateY(-8px) translateX(4px) scale(1.02)}
-100%{transform:translateY(0) translateX(0) scale(1)}
-}
+        section img {
+            max-width: 88%;
+            max-height: 80vh;
+            border-radius: 20px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+            opacity: 0;
+            transform: scale(.8);
+            transition: all 1s ease;
 
-/* transition styles */
-.fade img{transform:scale(.7);opacity:0}
-.rotate img{transform:rotate(-8deg) scale(.8);opacity:0}
-.zoom img{transform:scale(.5);opacity:0}
-.blur img{filter:blur(6px);opacity:0}
+            /* floating motion */
+            animation: floatImage 7s ease-in-out infinite;
+        }
 
-/* floating hearts & flowers */
-.floatItem{
-position:fixed;
-pointer-events:none;
-bottom:-40px;
-animation:floatUp linear forwards;
-}
+        section.show img {
+            opacity: 1;
+            transform: scale(1);
+        }
 
-@keyframes floatUp{
-0%{transform:translateY(0) rotate(0);opacity:1}
-100%{transform:translateY(-110vh) rotate(360deg);opacity:0}
-}
+        /* gentle floating effect */
+        @keyframes floatImage {
+            0% {
+                transform: translateY(0) translateX(0) scale(1)
+            }
 
-@media(max-width:768px){
-#intro h1{font-size:36px}
-#intro p{font-size:18px}
-}
+            25% {
+                transform: translateY(-10px) translateX(6px) scale(1.02)
+            }
 
-</style>
+            50% {
+                transform: translateY(-16px) translateX(-6px) scale(1.03)
+            }
+
+            75% {
+                transform: translateY(-8px) translateX(4px) scale(1.02)
+            }
+
+            100% {
+                transform: translateY(0) translateX(0) scale(1)
+            }
+        }
+
+        /* transition styles */
+        .fade img {
+            transform: scale(.7);
+            opacity: 0
+        }
+
+        .rotate img {
+            transform: rotate(-8deg) scale(.8);
+            opacity: 0
+        }
+
+        .zoom img {
+            transform: scale(.5);
+            opacity: 0
+        }
+
+        /* .blur img {
+            filter: blur(6px);
+            opacity: 0
+        } */
+
+        /* floating hearts & flowers */
+        .floatItem {
+            position: fixed;
+            pointer-events: none;
+            bottom: -40px;
+            animation: floatUp linear forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0);
+                opacity: 1
+            }
+
+            100% {
+                transform: translateY(-110vh) rotate(360deg);
+                opacity: 0
+            }
+        }
+
+        @media(max-width:768px) {
+            #intro h1 {
+                font-size: 36px
+            }
+
+            #intro p {
+                font-size: 18px
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- Name Gate -->
-<div id="gate">
-<h2>Em tên gì 💌</h2>
-<input id="nameInput" placeholder="Tên của em" />
-<button id="enterBtn">Mở</button>
-<div id="errorMsg"></div>
-</div>
+    <!-- Name Gate -->
+    <div id="gate">
+        <h2>Nhập tên để mở kỷ niệm 💌</h2>
+        <input id="nameInput" placeholder="Tên của bạn" />
+        <button id="enterBtn">Mở</button>
+        <div id="errorMsg"></div>
+    </div>
 
-<section id="intro">
-<h1>🌸 Happy Women's Day 🌸</h1>
-<p>Nhân ngày 8/3 chúc em vui vẻ, mạnh khoẻ, hạnh phúc và bình an!</p>
-<div class="scrollHint">⬇ Cuộn xuống để xem ảnh ⬇</div>
-</section>
+    <section id="intro">
+        <h1>🌸 Happy Women's Day 🌸</h1>
+        <p>Gửi đến bạn những khoảnh khắc đẹp và kỷ niệm ngọt ngào</p>
+        <div class="scrollHint">⬇ Cuộn xuống để xem ảnh ⬇</div>
+    </section>
 
-<div id="gallery"></div>
+    <div id="gallery"></div>
 
-<script>
+    <script>
 
-/* load images from /img */
-async function loadImages(){
+        /* load images from /img */
+        async function loadImages() {
 
-let files=[];
+            let files = [];
 
-try{
-let res=await fetch('img/');
-let text=await res.text();
+            try {
+                let res = await fetch('img/');
+                let text = await res.text();
 
-let parser=new DOMParser();
-let doc=parser.parseFromString(text,'text/html');
+                let parser = new DOMParser();
+                let doc = parser.parseFromString(text, 'text/html');
 
-let links=[...doc.querySelectorAll('a')];
+                let links = [...doc.querySelectorAll('a')];
 
-links.forEach(a=>{
-let href=a.getAttribute('href');
-if(/\.(jpg|jpeg|png|webp|gif)$/i.test(href)){
-files.push('img/'+href.replace(/^.*\//,''));
-}
-});
+                links.forEach(a => {
+                    let href = a.getAttribute('href');
+                    if (/\.(jpg|jpeg|png|webp|gif)$/i.test(href)) {
+                        files.push('img/' + href.replace(/^.*\//, ''));
+                    }
+                });
 
-}catch(e){
-console.log('Cannot read folder');
-}
+            } catch (e) {
+                console.log('Cannot read folder');
+            }
 
-/* fallback internet images */
-if(files.length===0){
-files=[
-"img/1.jpg",
-"img/2.jpg",
-"img/3.jpg",
-"img/4.jpg",
-"img/5.jpg",
-"img/6.jpg"
-];
-}
+            /* fallback internet images */
+            if (files.length === 0) {
+                files = [
+                    "img/1.jpg",
+                    "img/2.jpg",
+                    "img/3.jpg",
+                    "img/4.jpg",
+                    "img/5.jpg",
+                    "img/6.jpg"
+                ];
+            }
 
-return files;
-}
+            return files;
+        }
 
-const styles=["fade","rotate","zoom","blur"];
-const gallery=document.getElementById("gallery");
+        const styles = ["fade", "rotate", "zoom"/*, "blur"*/];
+        const gallery = document.getElementById("gallery");
 
-async function initGallery(){
+        async function initGallery() {
 
-const images=await loadImages();
+            const images = await loadImages();
 
-images.forEach((src,i)=>{
+            images.forEach((src, i) => {
 
-let section=document.createElement("section");
-section.className=styles[i%styles.length];
+                let section = document.createElement("section");
+                section.className = styles[i % styles.length];
 
-let img=document.createElement("img");
-img.src=src;
+                let img = document.createElement("img");
+                img.src = src;
 
-section.appendChild(img);
+                section.appendChild(img);
 
-gallery.appendChild(section);
+                gallery.appendChild(section);
 
-});
+            });
 
-/* scroll animation */
-const observer=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add("show");
-}
-});
-},{threshold:.5});
+            /* scroll animation */
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("show");
+                    }
+                });
+            }, { threshold: .5 });
 
-document.querySelectorAll("section").forEach(sec=>observer.observe(sec));
+            document.querySelectorAll("section").forEach(sec => observer.observe(sec));
 
-}
+        }
 
-initGallery();
+        initGallery();
 
-/* hearts / flowers */
-const symbols=["❤","💖","🌸","🌺"];
+        /* hearts / flowers */
+        const symbols = ["❤", "💖", "🌸", "🌺"];
 
-function createFloat(){
-let el=document.createElement("div");
-el.className="floatItem";
+        function createFloat() {
+            let el = document.createElement("div");
+            el.className = "floatItem";
 
-let sym=symbols[Math.floor(Math.random()*symbols.length)];
+            let sym = symbols[Math.floor(Math.random() * symbols.length)];
 
-el.innerHTML=sym;
+            el.innerHTML = sym;
 
-el.style.left=Math.random()*100+"vw";
-el.style.fontSize=(16+Math.random()*30)+"px";
-el.style.animationDuration=(5+Math.random()*5)+"s";
+            el.style.left = Math.random() * 100 + "vw";
+            el.style.fontSize = (16 + Math.random() * 30) + "px";
+            el.style.animationDuration = (5 + Math.random() * 5) + "s";
 
-if(sym.includes("🌸")||sym.includes("🌺")){
-el.style.filter="drop-shadow(0 0 6px pink)";
-}
+            if (sym.includes("🌸") || sym.includes("🌺")) {
+                el.style.filter = "drop-shadow(0 0 6px pink)";
+            }
 
-document.body.appendChild(el);
+            document.body.appendChild(el);
 
-setTimeout(()=>{el.remove();},10000);
-}
+            setTimeout(() => { el.remove(); }, 10000);
+        }
 
-setInterval(createFloat,600);
+        setInterval(createFloat, 600);
 
-/* Gate Logic */
-const validNames=["ni","út ni","ut ni"];
+        /* Gate Logic */
+        const validNames = ["ni", "út ni", "ut ni"];
 
-function normalize(str){
-return str
-.toLowerCase()
-.normalize("NFD")
-.replace(/\p{Diacritic}/gu,"")
-.trim();
-}
+        function normalize(str) {
+            return str
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/\p{Diacritic}/gu, "")
+                .trim();
+        }
 
-function checkName(){
-let input=document.getElementById("nameInput").value;
-let name=normalize(input);
+        function checkName() {
+            let input = document.getElementById("nameInput").value;
+            let name = normalize(input);
 
-if(validNames.includes(name)){
-document.getElementById("gate").style.display="none";
-}else{
-document.getElementById("errorMsg").innerText="Sai tên rồi 😝 thử lại nha";
-}
-}
+            if (validNames.includes(name)) {
+                document.getElementById("gate").style.display = "none";
+            } else {
+                document.getElementById("errorMsg").innerText = "Sai tên rồi 😝 thử lại nha";
+            }
+        }
 
-document.getElementById("enterBtn").onclick=checkName;
+        document.getElementById("enterBtn").onclick = checkName;
 
-document.getElementById("nameInput").addEventListener("keypress",e=>{
-if(e.key==="Enter") checkName();
-});
+        document.getElementById("nameInput").addEventListener("keypress", e => {
+            if (e.key === "Enter") checkName();
+        });
 
-</script>
+    </script>
 
 </body>
+
 </html>
